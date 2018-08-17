@@ -28,7 +28,8 @@ inquirer
  
 function checkInventory(id, units) {
   connection.connect();
-  const query = "SELECT stock_quantity from products WHERE item_id = " + id + ";";
+  const query = `SELECT stock_quantity FROM products 
+                 WHERE item_id = ${id};`;
   connection.query(query, function (error, results, fields) {
     if (error) throw error;
     if(results[0].stock_quantity <= 0) {
@@ -41,7 +42,11 @@ function checkInventory(id, units) {
 }
 
 function updateProducts(id, units) {
-  const query =  "UPDATE products SET stock_quantity = stock_quantity - " + units + " WHERE item_id = " + id + "; SELECT cost from products WHERE item_id = " + id + ";";  
+  const query =  `UPDATE products 
+                  SET stock_quantity = stock_quantity - ${units}
+                  WHERE item_id =  ${id}; 
+                  SELECT cost FROM products 
+                  WHERE item_id = ${id};`  
   connection.query(query, function (error, results, fields) {
     if (error) throw error;
     console.log(`Your purchase cost $${results[1][0].cost * units}.`);
