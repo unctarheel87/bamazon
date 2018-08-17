@@ -31,7 +31,7 @@ function checkInventory(id, units) {
   const query = "SELECT stock_quantity from products WHERE item_id = " + id + ";";
   connection.query(query, function (error, results, fields) {
     if (error) throw error;
-    if(results[0].stock_quantity < 0) {
+    if(results[0].stock_quantity <= 0) {
       console.log("Insufficient Quantity!")
       connection.end();
     } else {
