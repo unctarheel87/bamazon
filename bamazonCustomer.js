@@ -23,20 +23,28 @@ inquirer
   .then(function(answers) {
     const id = answers.product_id;
     const units = parseFloat(answers.units);
-    const query =  "UPDATE products SET stock_quantity = stock_quantity - " + units + " WHERE item_id = " + id + "; SELECT * from products;"
-    console.log(query);
-    dataBase(query, units, id);
+    checkInventory(id, units);
   });
  
-function dataBase(query, units, id) {
-  connection.connect();  
+function checkInventory(id, units) {
+  connection.connect();
+  const query = "SELECT stock_quantity from products WHERE item_id = " + id + ";";
   connection.query(query, function (error, results, fields) {
     if (error) throw error;
-      for(let item of results[1]) {
-        if(item.item_id == id) {
-          console.log(`Your order cost $${parseFloat(item.cost) * units}`); 
-        }
-      };
+    if(results[0].stock_quantity < 0) {
+      console.log("Insufficient Quantity!")
+      connection.end();
+    } else {
+      updateProducts(id, units);
+    }
     });
-  connection.end();  
+}
+
+function updateProducts(id, units) {
+  const query =  "UPDATE products SET stock_quantity = stock_quantity - " + units + " WHERE item_id = " + id + "; SELECT cost from products WHERE item_id = " + id + ";";  
+  connection.query(query, function (error, results, fields) {
+    if (error) throw error;
+    console.log(`Your purchase cost $${results[1][0].cost * units}.`);
+    connection.end();
+  }); 
 }
