@@ -1,5 +1,5 @@
-const cTable = require('console.table');
-const inquirer = require('inquirer');
+const cTable     = require('console.table');
+const inquirer   = require('inquirer');
 const mysql      = require('mysql');
 const connection = mysql.createConnection({
   host     : 'localhost',
@@ -9,14 +9,12 @@ const connection = mysql.createConnection({
   multipleStatements: true
 });
 
-connection.connect();
 connection.query("SELECT * FROM products", function (error, results, fields) {
   if (error) throw error;
   console.log("");
   console.table(results);
   prompt()
 }); 
-
 
 function prompt() {
   inquirer
