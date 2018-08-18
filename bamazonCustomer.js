@@ -37,8 +37,8 @@ function prompt() {
  
 function checkInventory(id, units) {
   const query = `SELECT stock_quantity FROM products 
-                 WHERE item_id = ${id};`;
-  connection.query(query, function (error, results, fields) {
+                 WHERE item_id = ?;`;
+  connection.query(query, [id], function (error, results, fields) {
     if (error) throw error;
     if(results[0].stock_quantity <= 0) {
       console.log("Insufficient Quantity!")
@@ -51,11 +51,11 @@ function checkInventory(id, units) {
 
 function updateProducts(id, units) {
   const query =  `UPDATE products 
-                  SET stock_quantity = stock_quantity - ${units}
-                  WHERE item_id = ${id}; 
+                  SET stock_quantity = stock_quantity - ?
+                  WHERE item_id = ?; 
                   SELECT * FROM products 
-                  WHERE item_id = ${id};`  
-  connection.query(query, function (error, results, fields) {
+                  WHERE item_id = ?;`; 
+  connection.query(query, [units, id, id], function (error, results, fields) {
     if (error) throw error;
     const product = results[1][0];
     console.log(`\nYour purchase of ${product.product_name} comes to $${product.cost * units}.\n`);
