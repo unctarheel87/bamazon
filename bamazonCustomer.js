@@ -44,18 +44,19 @@ function checkInventory(id, units) {
       console.log("Insufficient Quantity!")
       connection.end();
     } else {
-      updateProducts(id, units);
+      purchaseProduct(id, units);
     }
     });
 };
 
-function updateProducts(id, units) {
+function purchaseProduct(id, units) {
   const query =  `UPDATE products 
-                  SET stock_quantity = stock_quantity - ?
+                  SET stock_quantity = stock_quantity - ?, 
+                  product_sales = product_sales + (cost * ?)
                   WHERE item_id = ?; 
                   SELECT * FROM products 
                   WHERE item_id = ?;`; 
-  connection.query(query, [units, id, id], function (error, res) {
+  connection.query(query, [units, units, id, id], function (error, res) {
     if (error) throw error;
     const product = res[1][0];
     console.log(`\nYour purchase of ${product.product_name} comes to $${product.cost * units}.\n`);
