@@ -13,7 +13,7 @@ connection.query("SELECT * FROM products", function (error, results, fields) {
   if (error) throw error;
   console.log("");
   console.table(results);
-  prompt()
+  prompt();
 }); 
 
 function prompt() {
@@ -33,21 +33,21 @@ function prompt() {
       const units = parseFloat(answers.units);
       checkInventory(id, units);
     });
-}  
+};  
  
 function checkInventory(id, units) {
   const query = `SELECT stock_quantity FROM products 
                  WHERE item_id = ?;`;
-  connection.query(query, [id], function (error, results, fields) {
+  connection.query(query, [id], function (error, res) {
     if (error) throw error;
-    if(results[0].stock_quantity <= 0) {
+    if(res[0].stock_quantity <= 0) {
       console.log("Insufficient Quantity!")
       connection.end();
     } else {
       updateProducts(id, units);
     }
     });
-}
+};
 
 function updateProducts(id, units) {
   const query =  `UPDATE products 
@@ -55,10 +55,10 @@ function updateProducts(id, units) {
                   WHERE item_id = ?; 
                   SELECT * FROM products 
                   WHERE item_id = ?;`; 
-  connection.query(query, [units, id, id], function (error, results, fields) {
+  connection.query(query, [units, id, id], function (error, res) {
     if (error) throw error;
-    const product = results[1][0];
+    const product = res[1][0];
     console.log(`\nYour purchase of ${product.product_name} comes to $${product.cost * units}.\n`);
     connection.end();
   }); 
-}
+};
