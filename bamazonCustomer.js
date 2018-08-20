@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
   multipleStatements: true
 });
 
-connection.query("SELECT * FROM products", function (error, results, fields) {
+connection.query("SELECT item_id, product_name, cost FROM products", function (error, results, fields) {
   if (error) throw error;
   console.log("");
   console.table(results);
