@@ -38,7 +38,7 @@ function prompt() {
 function viewProductSales() {
   connection.query(`SELECT department_id, products.department_name, over_head_costs, 
                     SUM(product_sales) AS 'product_sales', 
-                    SUM(product_sales - over_head_costs) AS 'total_costs'
+                    SUM(product_sales) - over_head_costs AS 'total_profit'
                     FROM products
                     RIGHT JOIN departments ON products.department_name = departments.department_name
                     GROUP BY department_id
