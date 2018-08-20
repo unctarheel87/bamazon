@@ -1,6 +1,8 @@
 const cTable     = require('console.table');
 const inquirer   = require('inquirer');
 const mysql      = require('mysql');
+const authenticate = require('./authenticate');
+
 const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -48,7 +50,7 @@ function viewProducts() {
     if(err) console.log(err);
     console.log("");
     console.table(res);
-    connection.end();
+    continueSession();
   }); 
 };
 
@@ -58,7 +60,7 @@ function viewLowInventory() {
     if(err) console.log(err);
     console.log("");
     console.table(res);
-    connection.end();
+    continueSession();
   }); 
 };
 
@@ -82,7 +84,7 @@ function addToInventory() {
       function(err, res) {
         if(err) throw err;
         console.log(`${res.affectedRows} item(s) changed in inventory.`);
-        connection.end();
+        continueSession();
     });
   });  
 };
@@ -119,9 +121,31 @@ function addNewProduct() {
         function(err, res) {
           if(err) throw err;
           console.log(`${res.affectedRows} product(s) added successfully.`);
-          connection.end();
+          continueSession();
       });
   });  
 };
 
-prompt();
+
+function continueSession() {
+  inquirer
+  .prompt([
+    {
+      name: 'yesorno',
+      type: 'list',
+      choices: ["Return to Menu", "Logout"]
+    }  
+  ])
+  .then(function(answer) {
+    switch (answer.yesorno) {
+      case 'Return to Menu':
+        prompt();
+        break;
+      case 'Logout':
+        connection.end();
+        break;
+    }    
+  });
+};
+
+authenticate(prompt);
