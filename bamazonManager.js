@@ -1,6 +1,6 @@
-const cTable     = require('console.table');
-const inquirer   = require('inquirer');
-const mysql      = require('mysql');
+const cTable       = require('console.table');
+const inquirer     = require('inquirer');
+const mysql        = require('mysql');
 const authenticate = require('./authenticate');
 
 const connection = mysql.createConnection({
@@ -38,7 +38,7 @@ function prompt() {
           break;
         case 'Add New Product':
           addNewProduct();
-          break;
+          break;  
         default:
           break;
       }

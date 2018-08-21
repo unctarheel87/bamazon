@@ -1,6 +1,6 @@
 const inquirer   = require('inquirer');
 const mysql      = require('mysql');
-const bcrypt = require('bcrypt');
+const bcrypt     = require('bcrypt');
 const saltRounds = 10;
 
 const connection = mysql.createConnection({

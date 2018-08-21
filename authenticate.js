@@ -1,6 +1,6 @@
 const inquirer   = require('inquirer');
 const mysql      = require('mysql');
-const bcrypt = require('bcrypt');
+const bcrypt     = require('bcrypt');
 
 const connection = mysql.createConnection({
   host     : 'localhost',
@@ -33,6 +33,7 @@ const authenticate = function(next) {
         if(res) {
         console.log("\nYou have successfully logged in. Welcome to the Manager Dashboard.\n")
         next();
+        connection.end();
       } else {
         console.log("username or password is incorrect.")
         connection.end();
