@@ -1,8 +1,8 @@
 const cTable       = require('console.table');
 const inquirer     = require('inquirer');
-const authenticate = require('./components/authenticate');
-const continueSession = require('./components/continueSession');
-const connection = require('./components/connection');
+const authenticate = require('./modules/authenticate');
+const continueSession = require('./modules/continueSession');
+const connection = require('./modules/connection');
 
 function prompt() {
   inquirer

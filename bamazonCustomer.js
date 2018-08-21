@@ -1,7 +1,7 @@
 const cTable     = require('console.table');
 const inquirer   = require('inquirer');
-const continueSession = require('./components/continueSession');
-const connection = require('./components/connection');
+const continueSession = require('./modules/continueSession');
+const connection = require('./modules/connection');
 
 connection.query("SELECT item_id, product_name, cost FROM products", function (error, results, fields) {
   if (error) throw error;
