@@ -6,7 +6,7 @@ const continueSession = function(next) {
   .prompt([
     {
       name: 'yesorno',
-      message: "continue session?",
+      message: "Continue session?",
       type: 'list',
       choices: ["Return to Menu", "Logout"]
     }  
