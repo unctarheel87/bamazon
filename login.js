@@ -24,16 +24,11 @@ function createLogin() {
     }
   ])
   .then(function(answers) {
-    connection.query(`INSERT INTO users SET username = ?`,
-      [answers.username],
-      function(err, res) {
-      if(err) throw err;
-      hashPass(answers.password, answers.username);
-    });
+    checkUserName(answers.password, answers.username);
   });
 };
 
-const hashPass = function (textPass, username) {
+function hashPass(textPass, username) {
   bcrypt.hash(textPass, saltRounds, function(err, hash) {
     if(err) throw error;
     connection.query(`UPDATE users SET password = ? WHERE username = ?`,
@@ -43,6 +38,29 @@ const hashPass = function (textPass, username) {
       connection.end();
     });
   });
+};
+
+function checkUserName(pass, user) {
+  connection.query(`SELECT username FROM users`, function(err, res) {
+    if(err) throw err;
+    for(let username of res) {
+      if(username.username === user) {
+        console.log("Username already exists...");
+        connection.end();
+        return false;
+      } 
+    }
+    setUser(pass, user);
+  });
+};
+
+function setUser(pass, user) {
+  connection.query(`INSERT INTO users SET username = ?`,
+    [user],
+    function(err, res) {
+    if(err) throw err;
+    hashPass(pass, user);
+  });  
 };
 
 createLogin();
