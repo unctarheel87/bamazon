@@ -34,9 +34,9 @@ function checkInventory(id, units) {
                  WHERE item_id = ?;`;
   connection.query(query, [id], function (error, res) {
     if (error) throw error;
-    if(res[0].stock_quantity <= 0) {
-      console.log("Insufficient Quantity!")
-      connection.end();
+    if(res[0].stock_quantity < units) {
+      console.log(`Insufficient Quantity! There are only ${res[0].stock_quantity} units currently in stock.`)
+      continueSession(prompt);
     } else {
       purchaseProduct(id, units);
     }
