@@ -1,14 +1,14 @@
 const cTable       = require('console.table');
 const inquirer     = require('inquirer');
-const authenticate = require('./authenticate');
-const continueSession = require('./continueSession');
-const connection = require('./connection');
+const authenticate = require('./components/authenticate');
+const continueSession = require('./components/continueSession');
+const connection = require('./components/connection');
 
 function prompt() {
   inquirer
     .prompt([
       {
-        name: 'command',
+        name: 'selection',
         type: 'list',
         choices: [
           'View Products for Sale', 
@@ -19,7 +19,7 @@ function prompt() {
       }
     ])
     .then(function(answer) {
-      switch (answer.command) {
+      switch (answer.selection) {
         case 'View Products for Sale':
           viewProducts();
           break;
