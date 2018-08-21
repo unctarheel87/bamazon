@@ -1,13 +1,7 @@
 const cTable     = require('console.table');
 const inquirer   = require('inquirer');
-const mysql      = require('mysql');
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'bootcamp',
-  database : 'bamazon',
-  multipleStatements: true
-});
+const continueSession = require('./continueSession');
+const connection = require('./connection');
 
 connection.query("SELECT item_id, product_name, cost FROM products", function (error, results, fields) {
   if (error) throw error;
@@ -60,6 +54,6 @@ function purchaseProduct(id, units) {
     if (error) throw error;
     const product = res[1][0];
     console.log(`\nYour purchase of ${product.product_name} comes to $${product.cost * units}.\n`);
-    connection.end();
+    continueSession(prompt);
   }); 
 };

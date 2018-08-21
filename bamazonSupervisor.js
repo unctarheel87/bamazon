@@ -1,13 +1,8 @@
-const cTable     = require('console.table');
-const inquirer   = require('inquirer');
-const mysql      = require('mysql');
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'bootcamp',
-  database : 'bamazon',
-  multipleStatements: true
-});
+const cTable       = require('console.table');
+const inquirer     = require('inquirer');
+const authenticate = require('./authenticate');
+const continueSession = require('./continueSession');
+const connection = require('./connection');
 
 function prompt() {
   inquirer
@@ -47,7 +42,7 @@ function viewProductSales() {
     if(err) console.log(err);
     console.log("");
     console.table(res);
-    connection.end();
+    continueSession(prompt);
   }); 
 };
 
@@ -73,10 +68,9 @@ function addNewDepartment() {
           function(err, res) {
             if(err) throw err;
             console.log(`${res.affectedRows} department(s) added successfully.`);
-            connection.end();
+            continueSession(prompt);
         });
     });  
   };
 
-
-prompt();
+authenticate('Supervisor', prompt);

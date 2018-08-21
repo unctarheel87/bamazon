@@ -1,15 +1,7 @@
 const inquirer   = require('inquirer');
-const mysql      = require('mysql');
 const bcrypt     = require('bcrypt');
 const saltRounds = 10;
-
-const connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'bootcamp',
-  database : 'bamazon',
-  multipleStatements: true
-});
+const connection = require('./connection');
 
 function createLogin() {
   inquirer
