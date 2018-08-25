@@ -10,6 +10,7 @@ const authenticate = function(role, next) {
       message: "username?"
     },
     {
+      type: 'password',
       name: 'password',
       message: "password?"
     }

@@ -11,6 +11,7 @@ function createLogin() {
       message: "Create a username"
     },
     {
+      type: 'password',
       name: 'password',
       message: "Create a password"
     }

@@ -11,7 +11,7 @@ Run `node login.js` to create a username and passowrd, which can be used for bot
 
 ## Dependencies 
 
-* Custom authentication middleware is provided in the `modules` folder. This was written using the `bcrypt` node package for hashing user passwords. By default these packages are loaded in the `bamazonManager` and `bamazonSupervisor` JS files.
+* Custom authentication middleware is provided in the `modules` folder. This was written using the `bcrypt` node package for hashing user passwords. By default these packages are loaded into the `bamazonManager.js` and `bamazonSupervisor.js` files.
 * Database management is handled through `MySQL`.
 * The `inquirer` npm package for CLI logic.
 
