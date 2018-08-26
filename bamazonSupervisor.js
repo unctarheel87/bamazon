@@ -60,7 +60,7 @@ function addNewDepartment() {
     ])
     .then(function(answers) {
       connection.query(
-        "INSERT INTO products SET ?",
+        "INSERT INTO departments SET ?",
           {
             department_name: answers.department_name,
             over_head_costs: answers.over_head_costs

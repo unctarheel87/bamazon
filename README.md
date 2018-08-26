@@ -5,8 +5,17 @@ Bamazon is a command line Store Front, written in nodeJS. Customers can buy any 
 ## How to Use
 
 * Customers will run `node bamazonCustomer.js`.
+
+  ![gif](bamazonCustomer.gif)  
 * Manager and Supervisor views will require authentication.  
 Run `node login.js` to create a username and passowrd, which can be used for both Manager and Supervisor views.
+
+  ![gif](login.gif) 
+* Managers will run `node bamazonManager.js`
+
+  ![gif](bamazonManager.gif)  
+* Supervisors will run `node bamazonSupervisor.js`
+  ![gif](bamazonSupervisor.gif) 
 * Command prompts in each Store view are self-explanatory, along with the option to remain in the program until you are completely finished with your session.
 
 ## Dependencies 
