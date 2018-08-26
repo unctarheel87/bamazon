@@ -15,6 +15,7 @@ Run `node login.js` to create a username and passowrd, which can be used for bot
 
   ![gif](bamazonManager.gif)  
 * Supervisors will run `node bamazonSupervisor.js`
+
   ![gif](bamazonSupervisor.gif) 
 * Command prompts in each Store view are self-explanatory, along with the option to remain in the program until you are completely finished with your session.
 
@@ -23,4 +24,3 @@ Run `node login.js` to create a username and passowrd, which can be used for bot
 * Custom authentication middleware is provided in the `modules` folder. This was written using the `bcrypt` node package for hashing user passwords. By default these packages are loaded into the `bamazonManager.js` and `bamazonSupervisor.js` files.
 * Database management is handled through `MySQL`.
 * The `inquirer` npm package for CLI logic.
-
